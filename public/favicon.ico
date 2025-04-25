@@ -1,0 +1,16 @@
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background gradient -->
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4F46E5" />
+      <stop offset="100%" stop-color="#7C3AED" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Base shape with rounded corners -->
+  <rect width="64" height="64" rx="16" fill="url(#bgGradient)" />
+  
+  <!-- F letterform -->
+  <path d="M22 22H42M22 22V42M22 32H38" 
+        stroke="white" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" />
+</svg> 
