@@ -182,13 +182,3 @@ If you find FADE helpful, consider supporting its development through:
 - All our contributors and supporters
 
 ---
-
-<p align="center">
-  <b>FADE</b> - Built with 💜 by <a href="https://github.com/nasserml">Naser</a>
-</p>
-<p align="center">
-  <a href="https://fade-ai.vercel.app/">Visit FADE</a> • 
-  <a href="https://github.com/nasserml/fade">GitHub</a> • 
-  <a href="https://github.com/nasserml/fade/issues">Report Bug</a> • 
-  <a href="https://github.com/nasserml/fade/issues">Request Feature</a>
-</p>
