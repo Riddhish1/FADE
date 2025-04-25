@@ -64,8 +64,8 @@ Choose from a range of pricing options tailored to your needs, from free tier fo
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/nasserml/fade.git
-   cd fade
+   https://github.com/Riddhish1/FADE.git
+   cd FADE
    ```
 
 2. **Install dependencies**
