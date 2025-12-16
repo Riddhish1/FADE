@@ -12,7 +12,18 @@ export async function POST(req) {
         
     } catch (error) {
         console.log(error);
-        return NextResponse.error({error});
         
+        // Handle rate limit errors
+        if (error.status === 429) {
+            return NextResponse.json(
+                { error: "Rate limit exceeded. Please wait a minute and try again. You've hit the free tier limit for Gemini API." },
+                { status: 429 }
+            );
+        }
+        
+        return NextResponse.json(
+            { error: error.message || "An error occurred while generating code" },
+            { status: 500 }
+        );
     }
 }

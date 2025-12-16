@@ -13,7 +13,7 @@ import { ActionContext } from '@/context/ActionContext';
 import { useRouter } from 'next/navigation';
 
 function Provider({ children }) {
-  const [messages, setMessages] = useState();
+  const [messages, setMessages] = useState([]);
   const [userDetail, setUserDetail] = useState();
   const [action, setAction] = useState();
   const router = useRouter();

@@ -11,7 +11,18 @@ export async function POST(req) {
         return NextResponse.json({result: AIResp});
     } catch (error) {
         console.error(error);
-        return NextResponse.error({error});
         
+        // Handle rate limit errors
+        if (error.status === 429) {
+            return NextResponse.json(
+                { error: "Rate limit exceeded. Please wait a minute and try again. You've hit the free tier limit for Gemini API." },
+                { status: 429 }
+            );
+        }
+        
+        return NextResponse.json(
+            { error: error.message || "An error occurred while processing your request" },
+            { status: 500 }
+        );
     }
 }

@@ -3,7 +3,6 @@ import React, { useContext } from "react";
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -20,6 +19,31 @@ import uuid4 from "uuid4";
 function SignInDialog({ openDialog, closeDialog }) {
   const { userDetail, setUserDetail } = useContext(UserDetailContext);
   const CreateUser = useMutation(api.users.CreateUser);
+
+  const handleTestAccount = async () => {
+    const testUser = {
+      name: "Test User",
+      email: "testuser@fade.dev",
+      picture: "/5907.jpg",
+      uid: "test-user-" + uuid4(),
+    };
+
+    try {
+      await CreateUser({
+        name: testUser.name,
+        email: testUser.email,
+        picture: testUser.picture,
+        uid: testUser.uid,
+      });
+      if (typeof window !== "undefined") {
+        localStorage.setItem("user", JSON.stringify(testUser));
+      }
+      setUserDetail(testUser);
+      closeDialog(false);
+    } catch (error) {
+      console.error("Test account error:", error);
+    }
+  };
 
   const googleLogin = useGoogleLogin({
     onSuccess: async (tokenResponse) => {
@@ -50,22 +74,37 @@ function SignInDialog({ openDialog, closeDialog }) {
       <DialogContent>
         <DialogHeader>
           <DialogTitle></DialogTitle>
-          <DialogDescription>
-            <div className="flex flex-col justify-center items-center gap-3">
-              <h2 className="font-bold text-2xl text-center text-white">
-                {Lookup.SIGNIN_HEADING}
-              </h2>
-              <p className="mt-2  text-center">{Lookup.SIGNIN_SUBHEADING}</p>
-              <Button
-                className="bg-blue-500 text-white hover:bg-blue-400 mt-3"
-                onClick={() => googleLogin()}
-              >
-                Signin In With Google
-              </Button>
-              <p>{Lookup.SIGNIn_AGREEMENT_TEXT}</p>
-            </div>
-          </DialogDescription>
         </DialogHeader>
+        <div className="flex flex-col justify-center items-center gap-3">
+          <h2 className="font-bold text-2xl text-center text-white">
+            {Lookup.SIGNIN_HEADING}
+          </h2>
+          <p className="mt-2 text-center">{Lookup.SIGNIN_SUBHEADING}</p>
+          <Button
+            className="bg-blue-500 text-white hover:bg-blue-400 mt-3 w-full max-w-xs"
+            onClick={() => googleLogin()}
+          >
+            Sign In With Google
+          </Button>
+          <div className="relative w-full max-w-xs my-2">
+            <div className="absolute inset-0 flex items-center">
+              <span className="w-full border-t border-gray-600"></span>
+            </div>
+            <div className="relative flex justify-center text-xs uppercase">
+              <span className="bg-background px-2 text-muted-foreground">
+                Or continue with
+              </span>
+            </div>
+          </div>
+          <Button
+            variant="outline"
+            className="w-full max-w-xs"
+            onClick={handleTestAccount}
+          >
+            Continue as Test User
+          </Button>
+          <p className="text-xs text-center text-muted-foreground">{Lookup.SIGNIn_AGREEMENT_TEXT}</p>
+        </div>
       </DialogContent>
     </Dialog>
   );
