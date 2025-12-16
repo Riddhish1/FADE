@@ -127,27 +127,39 @@ function CodeView() {
   };
 
   return (
-    <div className="relative code-editor rounded-lg overflow-hidden">
-      <div className="bg-slate-900 w-full p-3 border-b border-slate-700 flex justify-between items-center">
-        <div className="flex items-center shrink-0 bg-slate-800 p-1 px-2 gap-3 justify-center rounded-full">
+    <div className="relative code-editor rounded-2xl overflow-hidden border border-slate-700/50 shadow-2xl">
+      <div className="bg-gradient-to-r from-slate-900 to-slate-800 w-full p-4 border-b border-slate-700/50 flex justify-between items-center backdrop-blur-sm">
+        <div className="flex items-center shrink-0 bg-slate-800/50 p-1.5 px-2 gap-2 justify-center rounded-full border border-slate-700/50 shadow-inner">
           <button
             onClick={() => handleTabChange('code')}
-            className={`text-sm cursor-pointer px-3 py-1 rounded-full transition-all flex items-center gap-1 ${activeTab == 'code' ? 'text-white bg-indigo-600' : 'text-slate-300 hover:bg-slate-700'} `}
+            className={`text-sm cursor-pointer px-4 py-2 rounded-full transition-all duration-300 flex items-center gap-2 font-medium ${
+              activeTab == 'code' 
+                ? 'text-white bg-gradient-to-r from-indigo-600 to-purple-600 shadow-lg shadow-indigo-500/30' 
+                : 'text-slate-400 hover:bg-slate-700/50 hover:text-slate-200'
+            }`}
           >
-            <Code className="h-3.5 w-3.5" /> Editor
+            <Code className="h-4 w-4" /> Editor
           </button>
           <button
             onClick={() => handleTabChange('preview')}
-            className={`text-sm cursor-pointer px-3 py-1 rounded-full transition-all flex items-center gap-1 ${activeTab == 'preview' ? 'text-white bg-indigo-600' : 'text-slate-300 hover:bg-slate-700'} ${previewReady && activeTab !== 'preview' ? 'animate-pulse text-emerald-300' : ''}`}
+            className={`text-sm cursor-pointer px-4 py-2 rounded-full transition-all duration-300 flex items-center gap-2 font-medium ${
+              activeTab == 'preview' 
+                ? 'text-white bg-gradient-to-r from-indigo-600 to-purple-600 shadow-lg shadow-indigo-500/30' 
+                : 'text-slate-400 hover:bg-slate-700/50 hover:text-slate-200'
+            } ${
+              previewReady && activeTab !== 'preview' 
+                ? 'animate-pulse text-emerald-400' 
+                : ''
+            }`}
           >
-            <Eye className="h-3.5 w-3.5" /> Preview
+            <Eye className="h-4 w-4" /> Preview
             {previewReady && activeTab !== 'preview' && (
-              <span className="inline-block h-2 w-2 bg-emerald-500 rounded-full ml-1"></span>
+              <span className="inline-block h-2 w-2 bg-emerald-400 rounded-full ml-1 animate-ping"></span>
             )}
           </button>
         </div>
         
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-4">
           {previewReady && (
             <div className="text-xs text-slate-400 hidden md:flex items-center">
               <input 

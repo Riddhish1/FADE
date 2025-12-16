@@ -44,38 +44,43 @@ function Hero() {
 
   return (
     <div className="home-hero">
-      <div className="flex flex-col items-center gap-4">
-        <h2 className="hero-title flex items-center gap-2">
-          <Sparkles className="h-10 w-10 text-indigo-400" />
+      <div className="flex flex-col items-center gap-5">
+        <div className="inline-flex items-center gap-2 bg-slate-800/30 backdrop-blur-sm border border-indigo-500/20 px-4 py-2 rounded-full mb-2">
+          <Sparkles className="h-5 w-5 text-indigo-400 animate-pulse" />
+          <span className="text-sm text-slate-300 font-medium">AI-Powered Code Generation</span>
+        </div>
+        
+        <h2 className="hero-title flex flex-col items-center gap-2">
           {Lookup.HERO_HEADING}
         </h2>
-        <p className="hero-subtitle">{Lookup.HERO_DESC}</p>
+        <p className="hero-subtitle max-w-2xl">{Lookup.HERO_DESC}</p>
         
-        <div className="home-input-container w-full max-w-2xl mt-3">
+        <div className="home-input-container w-full max-w-3xl mt-4">
           <div className="flex gap-3 w-full">
             <textarea
               placeholder={Lookup.INPUT_PLACEHOLDER}
-              className="home-input h-32 max-h-56 resize-none"
+              className="home-input h-36 max-h-60 resize-none"
               onChange={(event) => setUserInput(event.target.value)}
             />
           </div>
           
           {userInput && (
-            <div className="flex justify-end mt-3">
+            <div className="flex justify-end mt-4">
               <button 
                 onClick={() => onGenerate(userInput)}
-                className="button-primary flex items-center gap-2"
+                className="button-primary flex items-center gap-2 group"
               >
-                Generate <ArrowRight className="w-4 h-4" />
+                Generate 
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </button>
             </div>
           )}
         </div>
 
-        <div className="flex mt-8 flex-wrap max-w-2xl items-center justify-center gap-3">
+        <div className="flex mt-10 flex-wrap max-w-3xl items-center justify-center gap-3">
           {Lookup.SUGGESTIONS.map((suggestion, index) => (
             <button
-              className="fade-button-outline text-sm py-1.5 px-3 rounded-full hover:scale-105 transition-transform"
+              className="text-sm py-2.5 px-5 rounded-full transition-all duration-300 bg-slate-800/40 border border-slate-700/50 text-slate-300 hover:bg-gradient-to-r hover:from-indigo-600/20 hover:to-purple-600/20 hover:border-indigo-500/50 hover:text-white hover:scale-105 hover:shadow-lg hover:shadow-indigo-500/20 backdrop-blur-sm"
               key={index}
               onClick={() => onGenerate(suggestion)}
             >

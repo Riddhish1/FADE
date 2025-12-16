@@ -11,22 +11,9 @@ function SideBarFooter() {
   
   const options = [
     {
-      name: 'Settings',
-      icon: Settings,
-      description: 'Customize your experience',
-      path: '/settings',
-    },
-    {
       name: 'My Subscription',
       icon: Wallet,
       description: userDetail?.token ? `${userDetail.token} tokens remaining` : 'Manage your plan',
-      path: '/pricing',
-    },
-    {
-      name: 'Help Center',
-      icon: HelpCircle,
-      description: 'Get support and guidance',
-      path: '/help',
     },
     {
       name: 'Sign Out',

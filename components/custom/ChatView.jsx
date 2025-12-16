@@ -98,77 +98,81 @@ function ChatView() {
   };
 
   return (
-    <div className="relative h-[83vh] flex flex-col">
-      <div className="flex-1 overflow-y-scroll scrollbar-hide pl-10">
+    <div className="relative h-[85vh] flex flex-col bg-slate-900/40 backdrop-blur-xl rounded-2xl border border-slate-700/50 shadow-2xl overflow-hidden">
+      {/* Messages Area */}
+      <div className="flex-1 overflow-y-auto scrollbar-hide p-6 space-y-4">
         {messages?.length > 0 && messages?.map((msg, index) => (
           <div
             key={index}
-            className="p-3 rounded-lg mb-2 flex gap-2 items-center justify-start leading-7"
-            style={{
-              backgroundColor: Colors.CHAT_BACKGROUND,
-            }}
+            className={`p-4 rounded-xl flex gap-3 items-start leading-7 transition-all duration-300 hover:scale-[1.01] ${
+              msg?.role === 'user' 
+                ? 'bg-gradient-to-br from-indigo-500/10 to-purple-500/10 border border-indigo-500/20' 
+                : 'bg-gradient-to-br from-slate-800/50 to-slate-900/50 border border-slate-700/50'
+            }`}
           >
             {msg?.role == 'user' && (
               <Image
                 src={userDetail?.picture}
                 alt="userImage"
-                width={35}
-                height={35}
-                className="rounded-full"
+                width={36}
+                height={36}
+                className="rounded-full ring-2 ring-indigo-500/30"
               />
             )}
-            <ReactMarkdown className="flex flex-col">
+            {msg?.role == 'ai' && (
+              <div className="w-9 h-9 rounded-full bg-gradient-to-br from-purple-500 to-indigo-600 flex items-center justify-center text-white font-bold text-sm shadow-lg">
+                AI
+              </div>
+            )}
+            <ReactMarkdown className="flex-1 text-slate-100 prose prose-invert max-w-none">
               {msg?.content}
             </ReactMarkdown>
           </div>
         ))}
         {loading && (
-          <div
-            className="p-3 rounded-lg mb-2 flex gap-2 items-center justify-start"
-            style={{
-              backgroundColor: Colors.CHAT_BACKGROUND,
-            }}
-          >
-            <Loader2Icon className="animate-spin" />
-            <h2>Generating response...</h2>
+          <div className="p-4 rounded-xl flex gap-3 items-center bg-gradient-to-br from-slate-800/50 to-slate-900/50 border border-slate-700/50">
+            <Loader2Icon className="animate-spin text-indigo-400" />
+            <h2 className="text-slate-300">Generating response...</h2>
           </div>
         )}
       </div>
 
       {/* Input Section */}
-      <div className="flex gap-2 items-end ">
-        {userDetail && (
-          <Image
-            onClick={toggleSidebar}
-            src={userDetail?.picture}
-            alt="userImage"
-            width={30}
-            height={30}
-            className="rounded-full cursor-pointer"
-          />
-        )}
-        <div
-          className="p-5 border rounded-xl max-w-2xl w-full mt-3"
-          style={{
-            backgroundColor: Colors.BACKGROUND,
-          }}
-        >
-          <div className="flex gap-2">
-            <textarea
-              placeholder={Lookup.INPUT_PLACEHOLDER}
-              className="outline-none bg-transparent w-full h-32 max-h-56 resize-none"
-              onChange={(event) => setUserInput(event.target.value)}
-              value={userInput}
+      <div className="p-4 border-t border-slate-700/50 bg-slate-900/60 backdrop-blur-sm">
+        <div className="flex gap-3 items-end">
+          {userDetail && (
+            <Image
+              onClick={toggleSidebar}
+              src={userDetail?.picture}
+              alt="userImage"
+              width={36}
+              height={36}
+              className="rounded-full cursor-pointer ring-2 ring-slate-700 hover:ring-indigo-500/50 transition-all"
             />
-            {userInput && (
-              <ArrowRight
-                onClick={() => onGenerate(userInput)}
-                className="bg-blue-500 p-2 w-10 h-10 rounded-md cursor-pointer"
+          )}
+          <div className="flex-1 bg-slate-800/50 border border-slate-700/50 rounded-xl p-1 backdrop-blur-sm hover:border-indigo-500/30 transition-all focus-within:border-indigo-500/50 focus-within:shadow-lg focus-within:shadow-indigo-500/10">
+            <div className="flex gap-2 items-end">
+              <textarea
+                placeholder={Lookup.INPUT_PLACEHOLDER}
+                className="outline-none bg-transparent w-full h-24 max-h-40 resize-none p-3 text-slate-100 placeholder:text-slate-500"
+                onChange={(event) => setUserInput(event.target.value)}
+                value={userInput}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' && !e.shiftKey && userInput) {
+                    e.preventDefault();
+                    onGenerate(userInput);
+                  }
+                }}
               />
-            )}
-          </div>
-          <div>
-            <Link className="h-5 w-5" />
+              {userInput && (
+                <button
+                  onClick={() => onGenerate(userInput)}
+                  className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 p-2.5 rounded-lg cursor-pointer transition-all shadow-lg hover:shadow-indigo-500/50 hover:scale-105 active:scale-95 m-2"
+                >
+                  <ArrowRight className="w-5 h-5 text-white" />
+                </button>
+              )}
+            </div>
           </div>
         </div>
       </div>

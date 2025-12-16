@@ -33,10 +33,6 @@ Work in a sleek, intuitive environment where you can edit code, chat with the AI
 ### 🔄 Instant Preview
 See your code come to life with a live preview that updates as you make changes. FADE automatically switches to the preview when your code is ready, providing immediate feedback.
 
-### 💰 Flexible Pricing Plans
-Choose from a range of pricing options tailored to your needs, from free tier for exploration to professional plans for serious development.
-
-<img src="docs/pricing.png" alt="FADE Pricing Plans" width="100%" style="max-width: 800px; border-radius: 8px; margin: 20px 0; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);" />
 
 ### Other Key Features
 - **💬 Intelligent Chat Assistant**: Get coding help, explanations, and debugging assistance
@@ -114,7 +110,7 @@ FADE is built with modern technologies for optimal performance and developer exp
 ```
 fade/
 ├── app/                      # Main Next.js application
-│   ├── (main)/               # Main routes (pricing, workspace)
+│   ├── (main)/               # Main routes (workspace)
 │   ├── api/                  # API routes for AI services
 │   ├── layout.js             # Root layout with metadata
 │   └── page.js               # Home page
